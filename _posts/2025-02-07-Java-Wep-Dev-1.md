@@ -38,13 +38,14 @@ toc_sticky: true
 1. [Edit Configurations...]에 들어간다.
 2. 'On Update action'과 'On frame deactivation' 설정을 위와 같이 조정한다.
 
-.jsp는 소스코드를 변경하는 것만으로 반영되지만 자바코드의 경우 반영되지 않는다.
+.jsp는 소스코드를 변경하는 것만으로 반영되지만 자바코드의 경우 반영되지 않음
 
-'services' 항목에서 [Deploy All]을 실행해서 현재 코드를 다시 빌드하고 build/libs 폴더의 내용물을 수정해야 반영이 된다.
+'services' 항목에서 [Deploy All]을 실행해서 현재 코드를 다시 빌드하고 build/libs 폴더의 내용물을 수정해야 반영됨
 
 **서블릿 코드 작성하기**
 - `서블릿(Servlet)`
   - HttpServlet을 상속받아 브라우저 요청을 처리하는 Java 클래스
+
 ```java
 package com.zerock.w1;
 
@@ -70,6 +71,7 @@ public class MyServlet extends HttpServlet {
     }
 }
 ```
+
 - `@WebServlet` 
   - 특정 URL과 서블릿을 매핑
 - `doGet()`
