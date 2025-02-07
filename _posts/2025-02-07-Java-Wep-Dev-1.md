@@ -232,3 +232,70 @@ public class InputController extends HttpServlet {
 | 수정(입력) |GET|TodoModifyController|WEB-INF/todo/modify.jsp|
 | 수정(처리) |POST|TodoModifyController|Redirect|
 | 삭제(처리) |POST|TodoRemoveController|Redirect|
+
+### 1.4 HttpServlet
+***
+**HttpServlet의 특징**
+- `doGet()`, `doPost()` 등을 제공하여 GET/POST 요청을 쉽게 분리 가능
+- WAS(톰캣)가 객체를 자동 생성 및 관리하여 개발자가 신경 쓸 필요 없음
+- 멀티 스레드 환경에서 동시 요청을 처리할 수 있도록 설계됨
+- `GenericServlet`은 HTTP에 특화되지 않은 요청/응답 기능을 제공하는 반면, `HttpServlet`은 HTTP 전용 기능을 지원
+![image](https://blog.kakaocdn.net/dn/boogO2/btrtKGZSli2/fkMPEPmUOO30zY4AdPdAGk/img.png)
+
+GenericServlet과 HttpServlet의 가장 큰 차이는 GenericServlet의 경우 HTTP 프로토콜에 특화되지 않는 요청(Request)과 응답(Response)에 대한 기능을 정의하고 있다는 것임
+
+#### <mark style='background-color: #f1f8ff'> HttpServlet의 라이프사이클 </mark>
+1. 브라우저가 특정 경로를 호출하면 톰캣이 해당 서블릿 클래스를 로딩하고 객체 생성
+2. `init()` 실행 → 서블릿 초기화 (필요 시 load-on-startup 옵션 사용)
+3. 브라우저 요청을 `HttpServletRequest`, `HttpServletResponse` 객체로 전달받아 처리
+4. GET/POST 방식에 맞춰 `doGet()`, `doPost()` 실행 (서블릿 객체는 하나만 생성되며 동일 객체로 여러 요청 처리)
+5. 톰캣 종료 시 `destroy()` 실행
+
+#### <mark style='background-color: #f1f8ff'> HttpServletRequest의 주요 기능 </mark>
+**HttpServletRequest 주요 기능**
+HTTP 요청 정보를 제공 (헤더, 파라미터, 쿠키 등)
+
+| 기능         | 메소드                                                                   | 설명                                 |
+|------------|-----------------------------------------------------------------------|------------------------------------|
+| HTTP 헤더 관련 | getHeaderNames()<br>getHeader(이름)                                     | HTTP 헤더 내용들을 찾아내는 기능               |
+| 사용자 관련     | getRemoteAddress()                                                    | 접속한 사용자의 IP 주소                     |
+| 요청 관련      | getMethod()<br>getRequestURL()<br>getRequestURI()<br>getServletPath() | GET/POST 정보, 사용자가 호출에 사용한 URL 정보 등 |
+| 쿼리 스트링 관련  | getParameter()<br>getParameterValues()<br>getParameterNames()         | 쿼리 스트링 등으로 전달되는 데이터를 추출하는 용도       |
+| 쿠키 관련      | getCookies()                                                          | 브라우저가 전송한 쿠키 정보                    |
+| 전달 관련      | getRequestDispatcher()                                                |                                    |
+| 데이터 저장     | setAttribute()                                                        | 전달하기 전에 필요한 데이터를 저장하는 경우에 사용       |
+
+**주요 메소드**
+- `getParameter(name)`
+  - 쿼리 스트링에서 값 추출 (String 반환, 없는 경우 null)
+- `getParameterValues(name)`
+  - 동일한 이름의 여러 파라미터 처리
+- `setAttribute(key, value)`
+  - JSP로 데이터 전달 시 사용
+- `getRequestDispatcher().forward()`
+  - 다른 서블릿/JSP로 요청 전달
+
+#### <mark style='background-color: #f1f8ff'> HttpServletResponse의 주요 기능 </mark>
+HttpServletRequest가 주로 `읽는`기능을 제공한다면 HttpServletResponse는 반대로 `쓰는`기능을 담당
+
+**HttpServletResponse의 주요 기능**
+
+| 기능      | 메소드              | 설명                             |
+|---------|------------------|--------------------------------|
+| MIME 타입 | setContentType() | 응답 데이터의 종류를 지정(이미지/html/xml 등) |
+| 헤더 관련   | setHeader()      | 특정 이름의 HTTP 헤더 지정              |
+| 상태 관련   | setStatus()      | 404, 200, 500 등 응답 상태 코드 지정    |
+| 출력 관련   | getWriter()      | PrintWriter를 이용해서 응답 메시지 작성    |
+| 쿠키 관련   | addCookie()      | 응답 시에 특정 쿠키 추가                 |
+| 전달 관련   | sendRedirect()   | 브라우저에 이동을 지시                   |
+
+**주요 메소드**
+- `setContentType()`
+  - 응답 데이터 타입 지정 (HTML, JSON 등)
+- `setStatus()`
+  - HTTP 상태 코드 설정 (200, 404, 500 등)
+- `getWriter()`
+  - `PrintWriter`를 이용해 응답 메시지 작성
+- `sendRedirect()`
+  - 클라이언트들에게 새로운 URL로 이동하도록 응답
+    - 페이지 새로고침 방지 및 완료 후 새로운 흐름을 만들 때 사용
