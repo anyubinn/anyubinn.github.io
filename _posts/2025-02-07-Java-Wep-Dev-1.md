@@ -220,12 +220,13 @@ public class InputController extends HttpServlet {
     - 삭제 처리 후 목록으로 이동
 
 **구현 목록 정리**
-|기능|동작 방식|컨트롤러(org.zerock.w1.todo)|JSP|
-|------|---|---|---|
-|목록|GET|TodoListController|WEB-INF/todo/list.jsp|
-|등록(입력)|GET|TodoRegisterController|WEB-INF/todo/register.jsp|
-|등록(처리)|POST|TodoRegisterController|Redirect|
-|조회|GET|TodoReadController|WEB-INF/todo/read.jsp|
-|수정(입력)|GET|TodoModifyController|WEB-INF/todo/modify.jsp|
-|수정(처리)|POST|TodoModifyController|Redirect|
-|삭제(처리)|POST|TodoRemoveController|Redirect|
+
+| 기능     |동작 방식|컨트롤러(org.zerock.w1.todo)|JSP|
+|--------|---|---|---|
+| 목록     |GET|TodoListController|WEB-INF/todo/list.jsp|
+| 등록(입력) |GET|TodoRegisterController|WEB-INF/todo/register.jsp|
+| 등록(처리) |POST|TodoRegisterController|Redirect|
+| 조회     |GET|TodoReadController|WEB-INF/todo/read.jsp|
+| 수정(입력) |GET|TodoModifyController|WEB-INF/todo/modify.jsp|
+| 수정(처리) |POST|TodoModifyController|Redirect|
+| 삭제(처리) |POST|TodoRemoveController|Redirect|
