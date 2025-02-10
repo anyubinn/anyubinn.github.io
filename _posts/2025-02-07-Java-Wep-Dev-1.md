@@ -299,3 +299,63 @@ HttpServletRequest가 주로 `읽는`기능을 제공한다면 HttpServletRespon
 - `sendRedirect()`
   - 클라이언트들에게 새로운 URL로 이동하도록 응답
     - 페이지 새로고침 방지 및 완료 후 새로운 흐름을 만들 때 사용
+
+### 1.5 모델(Model)
+***
+#### <mark style='background-color: #f1f8ff'> 모델과 3티어 </mark>
+- `MVC에서의 모델`
+  - 컨트롤러에 필요한 기능 및 데이터 처리 담당
+- `시스템 전체 관점`
+  - 컨트롤러와 뷰를 제외한 모든 부분
+- 3티어 구조
+  - `서비스 계층`
+    - 비즈니스 로직 처리
+  - `영속 계층`
+    - 데이터베이스 처리
+![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fcx5X9I%2FbtrSlU19Taq%2FpzPS2YSaQ4R97tBsenG2X0%2Fimg.png)
+
+**DTO(Data Transfer Object)**
+- 계층 간 데이터 교환을 위해 사용
+- 여러 데이터를 묶어서 전달 (특별한 규격 X, Java Beans 형태 활용)
+- `Java Beans`
+  - 파라미터 없는 생성자 필요
+  - 멤버 변수는 private
+  - getter/setter 제공
+
+**서비스 객체**
+- 기능(로직)들의 묶음 (CRUD 포함)
+- DTO를 활용하여 데이터를 주고받음
+
+#### <mark style='background-color: #f1f8ff'> 컨트롤러에서 모델 처리하기 </mark>
+- 웹 MVC 구조에서 컨트롤러 역할
+  - 필요한 데이터를 처리하기 위해 `서비스 객체` 활용
+
+#### <mark style='background-color: #f1f8ff'> JSP - EL(Expression Language) </mark>
+**EL을 이용한 출력**
+- `${}` 내부에 표현식을 작성하여 출력
+- getter를 자동 호출
+- EL은 출력만 담당 → `JSTL` 사용하여 제어문, 반복문 처리
+
+#### <mark style='background-color: #f1f8ff'> JSTL </mark>
+**JSP 파일에서 JSTL 사용하기**
+
+JSP 파일에서 사용하기 위해서는 파일 상단에 다음과 같은 태그 관련 설정을 추가해야 함
+```JSP
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+```
+
+- `<c:forEach>`
+  - 리스트, 배열 반복 처리
+
+| 속성명       | 속성값                                          |
+|-----------|----------------------------------------------|
+| var       | EL에서 사용될 변수 이름                               |
+| items     | List, Set, Map, Enumeration, Iterator 등의 컬랙션 |
+| begin/end | 반복의 시작/끝 값                                   |
+
+- `<c:if>`
+  - 조건문 (test 속성 활용, true/false 판별)
+- `<c:choose>`
+  - switch 구문과 유사
+- `<c:set>`
+  - 새로운 변수 생성 및 사용
