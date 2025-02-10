@@ -253,6 +253,7 @@ GenericServlet과 HttpServlet의 가장 큰 차이는 GenericServlet의 경우 H
 
 #### <mark style='background-color: #f1f8ff'> HttpServletRequest의 주요 기능 </mark>
 **HttpServletRequest 주요 기능**
+
 HTTP 요청 정보를 제공 (헤더, 파라미터, 쿠키 등)
 
 | 기능         | 메소드                                                                   | 설명                                 |
