@@ -1,7 +1,7 @@
 ---
 title: "[1장] 웹 프로그래밍의 시작"
 categories: [개인공부, 자바 웹 개발 워크북]
-tags: [Java, 웹 개발, 서블릿, JSP, MVC 패턴, Spring, HTTP, WAS, 웹 프로젝트, 웹 애플리케이션, 데이터베이스]
+tags: [Java, 웹 개발, 서블릿, JSP, MVC 패턴, Spring, HTTP, WAS]
 date: 2025-02-07 16:00:00 +0900
 toc_sticky: true
 ---
