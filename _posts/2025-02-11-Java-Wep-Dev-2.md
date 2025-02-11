@@ -62,7 +62,8 @@ public class ConnectTests {
 - `DDL(Data Definition Language)`
   - 테이블을 생성하거나 특정한 객체들을 생성할 때 사용하는 SQL
   - create/alter/drop/truncate
-```mysql
+
+```sql
 create table tbl_todo (
 	tno int primary key auto_increment,
 	title varchar(100) not null,
@@ -80,7 +81,7 @@ create table tbl_todo (
 
 테이블은 데이터의 형식이나 틀을 만드는 것이기 때문에 실제 데이터를 추가하는 작업은 별도로 진행해야 함
 
-```mysql
+```sql
 insert into tbl_todo (title, dueDate, finished)
 values ('Test...', '2025-02-11', 1);
 ```
@@ -92,7 +93,7 @@ values ('Test...', '2025-02-11', 1);
   - 가져오려는 데이터의 대상 테이블 지정
 - `where`
   - 대상의 필터링 지정
-```mysql
+```sql
 select * from tbl_todo where tno < 10;
 ```
 
@@ -103,7 +104,8 @@ select * from tbl_todo where tno < 10;
   - 특정한 칼럼의 내용 수정
 - `where`
   - 수정하려는 대상 데이터 지정
-```mysql
+
+```sql
 update tbl_todo set finished = 0, title = 'Not Yet...' where tno = 3;
 ```
 
@@ -114,6 +116,7 @@ update tbl_todo set finished = 0, title = 'Not Yet...' where tno = 3;
   - 삭제하려는 데이터의 대상 테이블 지정
 - `where`
   - 조건에 해당하는 데이터 삭제
-```mysql
+
+```sql
 delete from tbl_todo where tno > 5;
 ```
