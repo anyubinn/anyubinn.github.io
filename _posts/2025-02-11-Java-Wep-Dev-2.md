@@ -1,7 +1,7 @@
 ---
 title: "[2장] 웹과 데이터베이스"
 categories: [개인공부, 자바 웹 개발 워크북]
-tags: [Java, 웹 개발, 서블릿, JSP, MVC 패턴, Spring, HTTP, WAS]
+tags: [Java, 웹 개발, Spring, JDBC, SQL, 데이터베이스]
 date: 2025-02-11 16:00:00 +0900
 toc_sticky: true
 ---
