@@ -120,3 +120,32 @@ update tbl_todo set finished = 0, title = 'Not Yet...' where tno = 3;
 ```sql
 delete from tbl_todo where tno > 5;
 ```
+
+### 2.2 프로젝트 내 JDBC 구현
+***
+#### <mark style='background-color: #f1f8ff'> Lombok 라이브러리 </mark>
+자바 코드에서 반복적인 작업을 자동으로 처리해주는 라이브러리
+- `getter/setter`
+  - `@Getter`, `@Setter`, `@Data`로 자동 생성
+- `toString()`
+  - `@ToString`으로 자동 생성
+- `equals()/hashCode()`
+  - `@EqualsAndHashCode`로 자동생성
+- `생성자 자동 생성`
+  - `@AllArgsConstructor`, `@NoArgsConstructor`로 생성자 생성
+- `빌더 생성`
+  - `@Builder`로 빌더 패턴 코드 생성
+
+**Lombok 라이브러리 추가**
+
+JDK21 이상에서는 annotationProcessor가 적용되지 않으므로 그 이하 버전을 사용해야 함
+
+```build.gradle
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
+```
