@@ -140,12 +140,98 @@ delete from tbl_todo where tno > 5;
 
 JDK21 이상에서는 annotationProcessor가 적용되지 않으므로 그 이하 버전을 사용해야 함
 
-```build.gradle
+```
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
+```
+
+### 2.3 웹 MVC와 JDBC의 결합
+***
+#### <mark style='background-color: #f1f8ff'> ModelMapper 라이브러리 </mark>
+- VO와 DTO의 차이점
+  - `VO`
+    - 주로 읽기 위주의 작업을 위해서만 사용
+  - `DTO`
+    - 주로 데이터 전송을 위해 사용
+- `ModelMapper 라이브러리`
+  - DTO ↔ VO 변환을 도와주는 라이브러리
+  - getter/setter 등을 이용해서 객체의 정보를 다른 객체로 복사
+
+#### <mark style='background-color: #f1f8ff'> Log4j2와 @Log4j2 </mark>
+System.out.println() 대신 `Log4j2`를 활용해 더 효율적인 로그 관리 가능
+- `Log4j2` 주요 기능
+  - `레벨(level)`
+    - 개발/운영 환경에 따라 로그 레벨 설정 가능
+  - `어펜더(Appender)`
+    - 로그 출력 방식을 설정 (콘솔, 파일 등)
+![image](https://myblog.opendocs.co.kr/wp-content/uploads/2015/03/log4j.png)
+
+```
+dependencies {
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.2'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.17.2'
+}
+```
+
+**log4j2.xml 설정파일**
+
+Log4j2 라이브러리의 설정은 log4j2.xml이라는 파일을 이용해서 설정함
+
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+```
+
+**@Log4j2 어노테이션**
+
+@Log4j2 어노테이션을 추가하고 System.out.println() 대신 log.info()와 같은 코드로 변경
+
+```java
+package com.zerock.jdbcex.service;
+
+import com.zerock.jdbcex.dao.TodoDAO;
+import com.zerock.jdbcex.domain.TodoVO;
+import com.zerock.jdbcex.dto.TodoDTO;
+import com.zerock.jdbcex.util.MapperUtil;
+import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
+
+@Log4j2
+public enum TodoService {
+    INSTANCE;
+
+    private TodoDAO dao;
+    private ModelMapper modelMapper;
+
+    TodoService() {
+        dao = new TodoDAO();
+        modelMapper = MapperUtil.INSTANCE.get();
+    }
+
+    public void register(TodoDTO todoDTO) throws Exception {
+        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+
+//        System.out.println("todoVO: " + todoVO);
+        log.info(todoVO);
+
+        dao.insert(todoVO);
+    }
 }
 ```
