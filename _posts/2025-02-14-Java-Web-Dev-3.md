@@ -134,3 +134,25 @@ public class LoginCheckFilter implements Filter {
 - 로그인 체크
   - 사용자의 `HttpSession`에 로그인 정보가 없을 경우 쿠키를 확인하여 유효한 값인지 검사
   - 맞으면 `HttpSession`에 사용자 정보 추가
+
+### 3.3 리스너(Listener)
+***
+#### <mark style='background-color: #f1f8ff'> 리스너의 개념과 용도 </mark>
+- `옵저버(obserer) 패턴`
+  - 특정한 변화를 구독(subscribe)하는 객체들을 관리하며 변화가 발생하면 구독 객체들을 실행하는 방식
+  - 재난 감시 시스템
+- `이벤트 리스너`
+  - 특정 상황이 발생했음을 알려주는 역할
+
+**서블릿 API의 리스너**
+- 서블릿 API에서 다양한 이벤트에 맞는 리스너 인터페이스를 제공
+- `작업 수행 시점`
+  - 웹 애플리케이션의 시작/종료 시, `HttpSession`과 `HttpServletRequest`에서 특정 작업을 감시하고 처리
+
+**ServletContext와 ServletContextListener**
+- `ServletContext`
+  - 웹 애플리케이션 내 모든 자원을 공유하는 공간
+  - `setAttribute()`를 통해 객체를 보관하고 모든 컨트롤러와 JSP에서 이를 활용 가능
+- `ServletContextListener`
+  - 웹 애플리케이션 시작 시 필요한 객체를 준비하는 작업을 처리
+  - 스프링 프레임워크에서 프로젝트 실행 시 객체 로딩에 사용
