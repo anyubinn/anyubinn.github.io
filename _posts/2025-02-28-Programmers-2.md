@@ -32,8 +32,7 @@ toc_sticky: true
 - `num1`이 100이고 `num2`가 2이므로 100 - 2 = 98을 return합니다.
 
 #### 코드
-
-```JAVA
+```java
 class Solution {
   public int solution(int num1, int num2) {
     return num1 - num2;

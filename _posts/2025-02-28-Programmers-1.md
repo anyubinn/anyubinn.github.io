@@ -43,8 +43,7 @@ toc_sticky: true
 | A524634   |
 
 #### 코드
-
-```SQL
+```sql
 SELECT ANIMAL_ID
 FROM ANIMAL_INS
 WHERE NAME IS NOT NULL
