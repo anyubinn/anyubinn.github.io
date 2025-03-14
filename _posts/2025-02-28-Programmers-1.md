@@ -1,7 +1,7 @@
 ---
 title: "[프로그래머스 59403] 이름이 있는 동물의 아이디"
 categories: [프로그래머스, Lv1]
-tag: [Java, 다이나믹 프로그래밍]
+tag: [SQL]
 date: 2025-02-28 11:30:00 +0900
 toc_sticky: true
 ---
